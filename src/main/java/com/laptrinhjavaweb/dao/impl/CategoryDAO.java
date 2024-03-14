@@ -40,7 +40,7 @@ public class CategoryDAO implements ICategoryDAO {
 		if (connection != null) {
 			try {
 				statement = connection.prepareStatement(sql);
-				// init parameter when have WHERE 
+				// init parameter when have WHERE ; ONLY can did it at PreparedStatement [not Statement]
 				resultSet = statement.executeQuery();	// execute query => return object resultSet
 				while(resultSet.next()) {
 					CategoryModel category = new CategoryModel();
