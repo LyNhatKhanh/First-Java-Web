@@ -20,7 +20,7 @@ public class NewModel extends AbstractModel {
 	private String thumbnail;
 	private String shortDescription;
 	private String content;
-	private String categoryId;
+	private Long categoryId;
 	
 	public String getTilte() {
 		return tilte;
@@ -46,12 +46,13 @@ public class NewModel extends AbstractModel {
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
 	}
-	public String getCategoryId() {
+	public Long getCategoryId() {
 		return categoryId;
 	}
-	public void setCategoryId(String categoryId) {
+	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
 	}
+	
 	
 
 

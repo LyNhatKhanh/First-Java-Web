@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.laptrinhjavaweb.service.ICategoryService;
+import com.laptrinhjavaweb.service.INewService;
 
 //import com.laptrinhjavaweb.model.UserModel;
 
@@ -19,6 +20,9 @@ public class HomeController extends HttpServlet {
 	
 	@Inject
 	private ICategoryService categoryService;
+	
+	@Inject
+	private INewService newService;
 
 	private static final long serialVersionUID = 2686801510274002166L;
 
@@ -28,6 +32,10 @@ public class HomeController extends HttpServlet {
 		UserModel userModel = new UserModel();
 		userModel.setFullName("Ly Nhat Khanh xin chao");
 		request.setAttribute("model", userModel);*/
+		
+		Long categoryId = 1L;
+		
+		request.setAttribute("news", newService.findByCategoryId(categoryId));
 		
 		request.setAttribute("categories", categoryService.findAll());
 		RequestDispatcher rd = request.getRequestDispatcher("/views/web/home.jsp"); // views muon tra ve 
