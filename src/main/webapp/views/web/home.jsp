@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Trang chu</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Trang chủ</title>
 </head>
 <body>
 	<div class="row">
