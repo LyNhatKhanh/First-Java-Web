@@ -16,9 +16,9 @@
     	<tracking-mode>COOKIE</tracking-mode> <!-- erase jsessionid in URL -->
     </session-config>
     
-    <!-- <decorator name="web" page="web.jsp">
+    <decorator name="web" page="web.jsp">
         <pattern>/*</pattern>
-    </decorator> -->
+    </decorator>
     
     <!-- <decorator name="login" page="login.jsp">
         <pattern>/dang-nhap</pattern>

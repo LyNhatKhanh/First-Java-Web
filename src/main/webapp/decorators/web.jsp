@@ -16,16 +16,13 @@
     <!-- header -->
     
     <div class="container">
-    	<!-- add body at views -->
-		<dec:body/>
-		<!-- add body at views -->
+    	<dec:body/>
     </div>
 
 	<!-- footer -->
 	<%@ include file="/common/web/footer.jsp" %>
 	<!-- footer -->
 	
-	<!-- js -->
 	<script type="text/javascript" src="<c:url value='/template/web/jquery/jquery.min.js' />"></script>
     <script type="text/javascript" src="<c:url value='/template/web/bootstrap/js/bootstrap.bundle.min.js' />"></script>
 	
