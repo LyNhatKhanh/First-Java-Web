@@ -16,17 +16,18 @@ public class NewModel extends AbstractModel {
 	modifiedby VARCHAR(255) NULL
 	 */
 
-	private String tilte;
+	private String title;
 	private String thumbnail;
 	private String shortDescription;
 	private String content;
 	private Long categoryId;
 	
-	public String getTilte() {
-		return tilte;
+	
+	public String getTitle() {
+		return title;
 	}
-	public void setTilte(String tilte) {
-		this.tilte = tilte;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	public String getThumbnail() {
 		return thumbnail;
