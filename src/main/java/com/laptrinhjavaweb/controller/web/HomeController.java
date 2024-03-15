@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.laptrinhjavaweb.model.NewModel;
 import com.laptrinhjavaweb.service.ICategoryService;
 import com.laptrinhjavaweb.service.INewService;
 
@@ -22,7 +23,7 @@ public class HomeController extends HttpServlet {
 	private ICategoryService categoryService;
 	
 	@Inject
-	private INewService newService;
+	private INewService newService; 	// test findByCategoryId
 
 	private static final long serialVersionUID = 2686801510274002166L;
 
@@ -33,11 +34,22 @@ public class HomeController extends HttpServlet {
 		userModel.setFullName("Ly Nhat Khanh xin chao");
 		request.setAttribute("model", userModel);*/
 		
+		/* Test findByCategoryId
+		Long categoryId = 1L;
+		request.setAttribute("news", newService.findByCategoryId(categoryId));*/
+		
+		String title = "Bài viết 4";
+		String content = "bai viet 4";
 		Long categoryId = 1L;
 		
-		request.setAttribute("news", newService.findByCategoryId(categoryId));
+		NewModel newModel = new NewModel();
+		newModel.setTitle(title);
+		newModel.setContent(content);
+		newModel.setCategoryId(categoryId);
+		newService.save(newModel);
 		
-		request.setAttribute("categories", categoryService.findAll());
+		/* Test get all categories
+		 * request.setAttribute("categories", categoryService.findAll());*/
 		RequestDispatcher rd = request.getRequestDispatcher("/views/web/home.jsp"); // views muon tra ve 
 																					// (dispatcher: nguoi gui di - dieu phoi)
 		rd.forward(request, response);

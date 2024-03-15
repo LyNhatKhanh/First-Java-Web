@@ -29,6 +29,7 @@ public class AbstractDAO<T> implements IGenericDAO<T> {
 		}*/
 	}
 
+	@SuppressWarnings("hiding")
 	@Override
 	public <T> List<T> query(String sql, RowMapper<T> rowMapper, Object... parameters) {
 		List<T> results = new ArrayList<>();

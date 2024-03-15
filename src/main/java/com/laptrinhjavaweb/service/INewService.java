@@ -5,5 +5,7 @@ import java.util.List;
 import com.laptrinhjavaweb.model.NewModel;
 
 public interface INewService {
-	List<NewModel> findByCategoryId(Long categoryId);
+	public List<NewModel> findByCategoryId(Long categoryId);
+	public NewModel save(NewModel newModel);
+	
 }
