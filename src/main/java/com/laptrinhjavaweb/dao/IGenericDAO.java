@@ -16,5 +16,7 @@ public interface IGenericDAO<T> {
 	@SuppressWarnings("hiding")
 	// Object... == Object[]
 	public <T> List<T> query(String sql, RowMapper<T> rowMapper, Object... parameters);	
+	public void update(String sql, Object... parameters);
+	public Long insert(String sql, Object... parameters);
 	
 }

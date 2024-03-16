@@ -38,6 +38,9 @@ public class HomeController extends HttpServlet {
 		Long categoryId = 1L;
 		request.setAttribute("news", newService.findByCategoryId(categoryId));*/
 		
+		/* Test get all categories
+		 * request.setAttribute("categories", categoryService.findAll());*/
+		
 		String title = "Bài viết 4";
 		String content = "bai viet 4";
 		Long categoryId = 1L;
@@ -48,8 +51,6 @@ public class HomeController extends HttpServlet {
 		newModel.setCategoryId(categoryId);
 		newService.save(newModel);
 		
-		/* Test get all categories
-		 * request.setAttribute("categories", categoryService.findAll());*/
 		RequestDispatcher rd = request.getRequestDispatcher("/views/web/home.jsp"); // views muon tra ve 
 																					// (dispatcher: nguoi gui di - dieu phoi)
 		rd.forward(request, response);
