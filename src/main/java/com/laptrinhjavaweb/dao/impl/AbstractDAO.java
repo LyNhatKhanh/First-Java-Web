@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,6 +80,8 @@ public class AbstractDAO<T> implements IGenericDAO<T> {
 					statement.setInt(index, (Integer) parameter);
 				else if (parameter instanceof Timestamp)
 					statement.setTimestamp(index, (Timestamp) parameter);
+				/*else if (parameter == null)
+					statement.setNull(index, Types.NULL);*/
 			}
 			
 		} catch (SQLException e) {
@@ -151,11 +154,11 @@ public class AbstractDAO<T> implements IGenericDAO<T> {
 			// return id AI (Auto Incremental)
 			resultSet = statement.getGeneratedKeys(); // database generate (get value which database generate)
 			if (resultSet.next())
-				id = resultSet.getLong(1);
+				id = resultSet.getLong(1);	// 1: indexColumn of database
 			
 			/*
-			 * if all of command lines above success => go to [connection.commit()] else =>
-			 * go to [catch]
+			 * if all of command lines above success => go to [connection.commit()] 
+			 * else => go to [catch]
 			 */
 			connection.commit();
 			return id;
