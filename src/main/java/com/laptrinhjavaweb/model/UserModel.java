@@ -1,6 +1,6 @@
 package com.laptrinhjavaweb.model;
 
-public class UserModel extends AbstractModel {
+public class UserModel extends AbstractModel<RoleModel> {
 	/*
 	id bigint NOT NULL PRIMARY KEY auto_increment, -- primary key
     username VARCHAR(150) NOT NULL,

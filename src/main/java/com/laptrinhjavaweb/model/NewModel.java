@@ -1,6 +1,6 @@
 package com.laptrinhjavaweb.model;
 
-public class NewModel extends AbstractModel {
+public class NewModel extends AbstractModel<NewModel> {
 	/*
 	id bigint NOT NULL PRIMARY KEY auto_increment, -- primary key
     tilte VARCHAR(255) NULL,

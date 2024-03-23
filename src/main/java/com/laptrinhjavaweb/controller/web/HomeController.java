@@ -41,15 +41,15 @@ public class HomeController extends HttpServlet {
 		/* Test get all categories
 		 * request.setAttribute("categories", categoryService.findAll());*/
 		
-		String title = "Bài viết 4";
-		String content = "bai viet 4";
-		Long categoryId = 1L;
-		
-		NewModel newModel = new NewModel();
-		newModel.setTitle(title);
-		newModel.setContent(content);
-		newModel.setCategoryId(categoryId);
-		newService.save(newModel);
+//		String title = "Bài viết 4";
+//		String content = "bai viet 4";
+//		Long categoryId = 1L;
+//		
+//		NewModel newModel = new NewModel();
+//		newModel.setTitle(title);
+//		newModel.setContent(content);
+//		newModel.setCategoryId(categoryId);
+//		newService.save(newModel);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/views/web/home.jsp"); // views muon tra ve 
 																					// (dispatcher: nguoi gui di - dieu phoi)

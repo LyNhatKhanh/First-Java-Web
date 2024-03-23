@@ -1,6 +1,6 @@
 package com.laptrinhjavaweb.model;
 
-public class CategoryModel extends AbstractModel {
+public class CategoryModel extends AbstractModel<CategoryModel> {
 	/*
 	id bigint NOT NULL PRIMARY KEY auto_increment, -- primary key
     name VARCHAR(255) NOT NULL,

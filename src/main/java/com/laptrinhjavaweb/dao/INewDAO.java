@@ -10,4 +10,6 @@ public interface INewDAO extends IGenericDAO<NewModel> {
 	public Long save(NewModel newModel); // return newId
 	public void update(NewModel updateNew);
 	public void delete(long id);
+	public List<NewModel> findAll(Integer offset, Integer limit);
+	public int getTotalItem();
 }

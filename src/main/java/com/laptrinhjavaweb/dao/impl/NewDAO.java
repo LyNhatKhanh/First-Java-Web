@@ -18,8 +18,14 @@ public class NewDAO extends AbstractDAO<NewModel> implements INewDAO {
 	@Override
 	public Long save(NewModel newModel) {
 //		String sql = "INSERT INTO news (title, content, categoryid) VALUES(?,?,?)";
-		StringBuilder sql = new StringBuilder();
-		return insert(sql.toString(), newModel.getTitle(), newModel.getContent(), newModel.getCategoryId());
+		StringBuilder sql = new StringBuilder("INSERT INTO news");
+		sql.append(" (title, thumbnail, shortdescription, content, categoryid, createdate, createby)");
+		sql.append(" VALUES(?,?,?,?,?,?,?)");
+		
+		return insert(sql.toString(), 
+				newModel.getTitle(), newModel.getThumbnail(), newModel.getShortDescription(),
+				newModel.getContent(), newModel.getCategoryId(), newModel.getCreateDate(), 
+				newModel.getCreateBy());
 	}
 
 	@Override
@@ -31,17 +37,33 @@ public class NewDAO extends AbstractDAO<NewModel> implements INewDAO {
 
 	@Override
 	public void update(NewModel updateNew) {
-		String sql = "UPDATE newservlet.news SET title = ?, thumbnail = ?, "
+		/*String sql = "UPDATE newservlet.news SET title = ?, thumbnail = ?, "
 				+ "shortdescription = ?, content = ?, categoryid = ?, "
-				+ "createdate = ?, createby = ? WHERE id = ?";
-		update(sql, updateNew.getTitle(), updateNew.getThumbnail(), updateNew.getShortDescription(),
-				updateNew.getContent(), updateNew.getCategoryId(), updateNew.getCreateDate(),
-				updateNew.getCreateBy(), updateNew.getId());
+				+ "createdate = ?, createby = ? WHERE id = ?";*/
+		StringBuilder sql = new StringBuilder("UPDATE newservlet.news SET");
+		sql.append(" title = ?, thumbnail = ?, shortdescription = ?, content = ?, categoryid = ?,");
+		sql.append(" createdate = ?, createby = ?, modifieddate = ?, modifiedby = ? WHERE id = ?");
+		update(sql.toString(), updateNew.getTitle(), updateNew.getThumbnail(), 
+				updateNew.getShortDescription(), updateNew.getContent(), updateNew.getCategoryId(),
+				updateNew.getCreateDate(), updateNew.getCreateBy(), updateNew.getModifiedDate(), 
+				updateNew.getModifiedBy(), updateNew.getId());
 	}
 
 	@Override
 	public void delete(long id) {
 		String sql = "DELETE FROM newservlet.news WHERE id = ?";
 		update(sql,id);
+	}
+
+	@Override
+	public List<NewModel> findAll(Integer offset, Integer limit) {
+		String sql = "SELECT * FROM newservlet.news LIMIT ?,?";
+		return query(sql, new NewMapper(), offset, limit);
+	}
+
+	@Override
+	public int getTotalItem() {
+		String sql = "SELECT count(*) FROM newservlet.news";
+		return count(sql);
 	}
 }

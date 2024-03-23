@@ -1,6 +1,6 @@
 package com.laptrinhjavaweb.model;
 
-public class CommentModel extends AbstractModel {
+public class CommentModel extends AbstractModel<CommentModel> {
 	/*
 	id bigint NOT NULL PRIMARY KEY auto_increment, -- primary key
     content TEXT NOT NULL,
