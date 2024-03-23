@@ -37,7 +37,7 @@ public class NewController extends HttpServlet {
 		if (maxPageItemStr != null)
 			model.setMaxPageItem(Integer.parseInt(maxPageItemStr));
 		else
-			model.setMaxPageItem(0);*/
+			model.setMaxPageItem(0);*/ 
 		
 		// 2. From Util (BeanUtils)
 		NewModel model = FormUtil.toModel(NewModel.class, request);
@@ -49,7 +49,7 @@ public class NewController extends HttpServlet {
 		request.setAttribute(SystemConstant.MODEL, model);
 		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/new/list.jsp"); 	// views muon tra ve
 																							// (dispatcher: nguoi gui di - dieu phoi)
-		rd.forward(request, response);
+		rd.forward(request, response);; // additional commit
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
