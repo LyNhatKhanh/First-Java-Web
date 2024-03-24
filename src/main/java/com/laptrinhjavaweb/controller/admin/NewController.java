@@ -12,7 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.laptrinhjavaweb.constant.SystemConstant;
 import com.laptrinhjavaweb.model.NewModel;
+import com.laptrinhjavaweb.paging.PageRequest;
+import com.laptrinhjavaweb.paging.Pageble;
 import com.laptrinhjavaweb.service.INewService;
+import com.laptrinhjavaweb.sort.Sorter;
 import com.laptrinhjavaweb.utils.FormUtil;
 
 @WebServlet(urlPatterns = { "/admin-new" }) // multiple != (value = "/trang-chu")
@@ -40,12 +43,15 @@ public class NewController extends HttpServlet {
 			model.setMaxPageItem(0);*/ 
 		
 		// 2. From Util (BeanUtils)
-		NewModel model = FormUtil.toModel(NewModel.class, request);
- 		Integer offset = (model.getPage()-1) * model.getMaxPageItem();
-		model.setListResult(newService.findAll(offset, model.getMaxPageItem()));
+			// nhận dữ liệu từ client (views)
+		NewModel model = FormUtil.toModel(NewModel.class, request);		
+			// set data
+		Pageble pageble = new PageRequest(model.getPage(), model.getMaxPageItem(),
+											new Sorter(model.getSortName(), model.getSortBy()));
+		model.setListResult(newService.findAll(pageble));
 		model.setTotalItem(newService.getTotalItem());
 		model.setTotalPage((int) Math.ceil((double) model.getTotalItem() / model.getMaxPageItem()));
-		
+			// trả dữ liệu ra views với tên biến 'model' 
 		request.setAttribute(SystemConstant.MODEL, model);
 		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/new/list.jsp"); 	// views muon tra ve
 																							// (dispatcher: nguoi gui di - dieu phoi)

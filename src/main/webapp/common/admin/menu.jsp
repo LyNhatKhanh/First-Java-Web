@@ -39,7 +39,7 @@
 			</a>
 			<b class="arrow"></b>
 			<ul class="submenu">
-				<li><a href='<c:url value ="/admin-new?page=1&maxPageItem=2"/>'>
+				<li><a href='<c:url value ="/admin-new?page=1&maxPageItem=2&sortName=title&sortBy=DESC"/>'>
 					<i class="menu-icon fa fa-caret-right"></i> 
 					DS bài viết
 					</a> <b class="arrow"></b>

@@ -5,8 +5,10 @@ import java.util.List;
 import com.laptrinhjavaweb.dao.INewDAO;
 import com.laptrinhjavaweb.mapper.NewMapper;
 import com.laptrinhjavaweb.model.NewModel;
+import com.laptrinhjavaweb.paging.Pageble;
 
 public class NewDAO extends AbstractDAO<NewModel> implements INewDAO {
+	
 
 	@Override
 	public List<NewModel> findByCategoryId(Long categoryId) {
@@ -56,9 +58,13 @@ public class NewDAO extends AbstractDAO<NewModel> implements INewDAO {
 	}
 
 	@Override
-	public List<NewModel> findAll(Integer offset, Integer limit) {
-		String sql = "SELECT * FROM newservlet.news LIMIT ?,?";
-		return query(sql, new NewMapper(), offset, limit);
+	public List<NewModel> findAll(Pageble pageble) {
+		StringBuilder sql = new StringBuilder("SELECT * FROM newservlet.news");
+		if (pageble.getSorter() != null) 
+			sql.append(" ORDER BY " + pageble.getSorter().getSortName() + " " + pageble.getSorter().getSortBy());
+		if (pageble.getOffset() != null && pageble.getLimit() != null) 
+			sql.append(" LIMIT " + pageble.getOffset() + ", " + pageble.getLimit());
+		return query(sql.toString(), new NewMapper());
 	}
 
 	@Override

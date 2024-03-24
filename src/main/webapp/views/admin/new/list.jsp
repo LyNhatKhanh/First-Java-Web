@@ -49,6 +49,8 @@ pageEncoding="UTF-8" %> <%@ include file="/common/taglib.jsp"%>
 						<!-- this is appear on URL 'admin-new?trang=2&maxPageItem=2' -->
 						<input type="hidden" value="" id="page" name="page" />
 						<input type="hidden" value="" id="maxPageItem" name="maxPageItem" />
+						<input type="hidden" value="" id="sortName" name="sortName" />
+						<input type="hidden" value="" id="sortBy" name="sortBy" />
 						</div>
 					</div>
 					</div>
@@ -72,6 +74,8 @@ pageEncoding="UTF-8" %> <%@ include file="/common/taglib.jsp"%>
 				if(currentPage != page) {
                   $("#maxPageItem").val(limit);   // truyền dữ liệu lên tag <input>
                   $("#page").val(page);           // truyền dữ liệu lên tag <input>
+                  $("#sortName").val('title');   // truyền dữ liệu lên tag <input>
+                  $("#sortBy").val('desc');           // truyền dữ liệu lên tag <input>
                   $('#formSubmit').submit();
 				}
 			}
