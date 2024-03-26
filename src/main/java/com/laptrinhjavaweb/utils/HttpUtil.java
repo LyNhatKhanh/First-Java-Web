@@ -6,6 +6,10 @@ import java.io.IOException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class HttpUtil {
+	/*
+	 * Method toPost: INSERT INTO
+	 * From JSON to String & From String to objectModel
+	*/
 	private String value;
 
 	public HttpUtil(String value) {

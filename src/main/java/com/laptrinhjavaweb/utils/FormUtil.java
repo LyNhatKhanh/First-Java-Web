@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.beanutils.BeanUtils;
 
 public class FormUtil {
+	/*
+	 * Method toGet: SELECT
+	 * from request.getParameterMap() [String JSON] to objectModel
+	*/
 	@SuppressWarnings("unchecked")
 	public static <T> T toModel(Class<T> tClass, HttpServletRequest request) { // can truyen class vao => model.class
 		T object = null;
