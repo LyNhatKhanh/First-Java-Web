@@ -8,6 +8,7 @@ import com.laptrinhjavaweb.model.UserModel;
 
 public class UserMapper implements RowMapper<UserModel> {
 
+	// SELECT * FROM user INNER JOIN role ON user.roleid = role.id
 	@Override
 	public UserModel mapRow(ResultSet resultSet) {
 		try {
@@ -17,16 +18,22 @@ public class UserMapper implements RowMapper<UserModel> {
 			user.setPassword(resultSet.getString("password"));
 			user.setFullName(resultSet.getString("fullname"));
 			user.setStatus(resultSet.getInt("status"));
-			RoleModel role = new RoleModel();
-			role.setCode(resultSet.getString("code"));
-			role.setName(resultSet.getString("name"));
-			user.setRole(role);
-			user.setCreateDate(resultSet.getTimestamp("createdate"));
+			    /* if sql simple (only SELECT * FROM user) => try catch NullPointerException */
+			try {
+                RoleModel role = new RoleModel();
+                role.setCode(resultSet.getString("code"));
+                role.setName(resultSet.getString("name"));
+                user.setRole(role);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+            /*user.setCreateDate(resultSet.getTimestamp("createdate"));
 			user.setCreateBy(resultSet.getString("createby"));
 			if (resultSet.getTimestamp("modifieddate") != null)
 				user.setModifiedDate(resultSet.getTimestamp("modifieddate"));
 			if (resultSet.getString("modifiedby") != null)
-				user.setModifiedBy(resultSet.getString("modifiedby"));
+				user.setModifiedBy(resultSet.getString("modifiedby"));*/
 			
 			return user;
 		} catch (SQLException e) {

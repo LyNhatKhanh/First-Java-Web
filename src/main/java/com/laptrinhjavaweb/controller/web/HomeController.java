@@ -14,9 +14,11 @@ import com.laptrinhjavaweb.model.UserModel;
 import com.laptrinhjavaweb.service.ICategoryService;
 import com.laptrinhjavaweb.service.IUserService;
 import com.laptrinhjavaweb.utils.FormUtil;
+import com.laptrinhjavaweb.utils.SessionUtil;
+import com.mysql.cj.Session;
 
 
-@WebServlet(urlPatterns = { "/trang-chu", "/dang-nhap" })
+@WebServlet(urlPatterns = { "/trang-chu", "/dang-nhap", "/thoat" })
 public class HomeController extends HttpServlet {
 	
 	@Inject
@@ -34,10 +36,12 @@ public class HomeController extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/views/login.jsp"); 
 			rd.forward(request, response);
 		} else if (action != null && action.equals("logout")) {
-			
+			SessionUtil.getInstance().removeValue(request,"USERMODEL");
+			response.sendRedirect(request.getContextPath()+"/trang-chu");
+			// from Controller "/thoat" => Controller "/trang-chu", then getRequestDispatcher("/views/web/home.jsp") go to view
 		} else {
 //			request.setAttribute("categories", categoryService.findAll());
-			RequestDispatcher rd = request.getRequestDispatcher("/views/web/home.jsp"); 
+			RequestDispatcher rd = request.getRequestDispatcher("/views/web/home.jsp"); // go to view
 			rd.forward(request, response);
 		}
 	}
@@ -48,8 +52,10 @@ public class HomeController extends HttpServlet {
 		if (action != null && action.equals("login")) {
 			UserModel model = FormUtil.toModel(UserModel.class, request);
 			model = userService.findByUserNameAndPasswordAndStatus(model.getUserName(), model.getPassword(), 1);
-				// logic
+			// logic
 			if (model != null) {
+				// put data & retain its while login
+				SessionUtil.getInstance().putValue(request,"USERMODEL", model);
 				if (model.getRole().getCode().equals("USER"))
 					response.sendRedirect(request.getContextPath()+"/trang-chu");
 				else if (model.getRole().getCode().equals("ADMIN")) 
