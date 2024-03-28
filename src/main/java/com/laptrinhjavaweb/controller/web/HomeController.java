@@ -1,6 +1,7 @@
 package com.laptrinhjavaweb.controller.web;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -29,11 +30,20 @@ public class HomeController extends HttpServlet {
 
 	private static final long serialVersionUID = 2686801510274002166L;
 
+	ResourceBundle resourceBundle = ResourceBundle.getBundle("message");
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
 		if (action != null && action.equals("login")) {
-			RequestDispatcher rd = request.getRequestDispatcher("/views/login.jsp"); 
+			String message = request.getParameter("message");		// username_password_invalid => Username or Password is invalid (in message.properties)
+			String alert = request.getParameter("alert");			// danger
+			if (message != null & alert != null) {
+				// trả dữ liệu ra views với tên biến 'model'
+				request.setAttribute("message", resourceBundle.getString(message));
+				request.setAttribute("alert", alert);
+			}
+			RequestDispatcher rd = request.getRequestDispatcher("/views/login.jsp");
 			rd.forward(request, response);
 		} else if (action != null && action.equals("logout")) {
 			SessionUtil.getInstance().removeValue(request,"USERMODEL");
@@ -62,7 +72,7 @@ public class HomeController extends HttpServlet {
 					response.sendRedirect(request.getContextPath()+"/admin-home");
 			} else 
 				// request.getContextPath(): http://localhost:8080/new-jdbc
-				response.sendRedirect(request.getContextPath()+"/dang-nhap?action=login");
+				response.sendRedirect(request.getContextPath()+"/dang-nhap?action=login&message=username_password_invalid&alert=danger");
 		} 
 		
 		

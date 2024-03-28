@@ -12,12 +12,14 @@
 	<div class="d-flex justify-content-center h-100">
 		<div class="card">
 			<div class="card-header" style="text-align: center;">
-				<div class="alert alert-success alert-dismissible">
-					<strong>Login Success!</strong>
-				</div>
-				<div class="alert alert-danger alert-dismissible">
-					<strong>Login Fail!</strong>
-				</div>
+				<c:if test="${not empty message}">
+					<div class="alert alert-${alert}">
+						<strong>${message}</strong>
+					</div>
+				</c:if>
+				<%--<div class="alert alert-danger">--%>
+					<%--<strong>Login Fail!</strong>--%>
+				<%--</div>--%>
 				<h3>Đăng nhập</h3>
 				<!-- <div class="d-flex justify-content-end social_icon">
                     <span><i class="fab fa-facebook-square"></i></span>

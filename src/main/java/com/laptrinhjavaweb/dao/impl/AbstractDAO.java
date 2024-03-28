@@ -124,7 +124,6 @@ public class AbstractDAO<T> implements IGenericDAO<T> {
 				try {
 					connection.rollback();
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 		} finally {
@@ -174,7 +173,6 @@ public class AbstractDAO<T> implements IGenericDAO<T> {
 				try {
 					connection.rollback();
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 		} finally {
