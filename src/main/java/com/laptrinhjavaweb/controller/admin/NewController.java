@@ -53,8 +53,9 @@ public class NewController extends HttpServlet {
 		model.setTotalPage((int) Math.ceil((double) model.getTotalItem() / model.getMaxPageItem()));
 			// trả dữ liệu ra views với tên biến 'model' 
 		request.setAttribute(SystemConstant.MODEL, model);
-		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/new/list.jsp"); 	// views muon tra ve
-																							// (dispatcher: nguoi gui di - dieu phoi)
+		/* getRequestDispatcher(""): return views muon tra ve 
+		   (dispatcher: nguoi gui di - dieu phoi) */
+		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/new/list.jsp"); 
 		rd.forward(request, response);; // additional commit
 	}
 

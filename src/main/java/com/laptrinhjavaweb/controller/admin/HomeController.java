@@ -16,8 +16,9 @@ public class HomeController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/home.jsp"); // views muon tra ve
-																					// (dispatcher: nguoi gui di - dieu phoi)
+		/* getRequestDispatcher(""): return views muon tra ve 
+		   (dispatcher: nguoi gui di - dieu phoi) */
+		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/home.jsp");
 		rd.forward(request, response);
 	}
 

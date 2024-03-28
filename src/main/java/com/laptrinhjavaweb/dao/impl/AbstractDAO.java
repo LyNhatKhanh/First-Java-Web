@@ -9,20 +9,28 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import com.laptrinhjavaweb.dao.IGenericDAO;
 import com.laptrinhjavaweb.mapper.RowMapper;
 
 public class AbstractDAO<T> implements IGenericDAO<T> {
-	
+
+	// db.properties in resources folder
+	ResourceBundle resourceBundle = ResourceBundle.getBundle("db");
+
 	public Connection getConnection() {
 		// ClassNotFoundException: prevent when we forget add dependency in pom.xml
 		// SQLException: url | user | password is not correct
 		try {
-			Class.forName("com.mysql.jdbc.Driver");			// load Driver (giống cổng kết nối | Connect vô mysql)
+			/*Class.forName("com.mysql.jdbc.Driver");			// load Driver (giống cổng kết nối | Connect vô mysql)
 			String url = "jdbc:mysql://localhost:3306/newservlet";
 			String user = "root";
-			String password = "123456";
+			String password = "123456";*/
+			Class.forName(resourceBundle.getString("driverName"));			// load Driver (giống cổng kết nối | Connect vô mysql)
+			String url = resourceBundle.getString("url");
+			String user = resourceBundle.getString("user");
+			String password = resourceBundle.getString("password");
 			return DriverManager.getConnection(url, user, password);
 		} catch (ClassNotFoundException | SQLException e) {		// multiple catch (2 case) 
 			return null;
@@ -116,7 +124,6 @@ public class AbstractDAO<T> implements IGenericDAO<T> {
 				try {
 					connection.rollback();
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 		} finally {
@@ -166,7 +173,6 @@ public class AbstractDAO<T> implements IGenericDAO<T> {
 				try {
 					connection.rollback();
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 		} finally {
