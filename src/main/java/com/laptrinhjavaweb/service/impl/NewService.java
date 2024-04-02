@@ -5,15 +5,21 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import com.laptrinhjavaweb.dao.ICategoryDAO;
 import com.laptrinhjavaweb.dao.INewDAO;
+import com.laptrinhjavaweb.model.CategoryModel;
 import com.laptrinhjavaweb.model.NewModel;
 import com.laptrinhjavaweb.paging.Pageble;
+import com.laptrinhjavaweb.service.ICategoryService;
 import com.laptrinhjavaweb.service.INewService;
 
 public class NewService implements INewService {
 	
 	@Inject
 	private INewDAO newDao;
+
+	@Inject
+	private ICategoryDAO categoryDAO;
 
 	@Override
 	public List<NewModel> findByCategoryId(Long categoryId) {
@@ -55,5 +61,13 @@ public class NewService implements INewService {
 	public int getTotalItem() {
 		return newDao.getTotalItem();
 	}
+
+    @Override
+    public NewModel findOne(long id) {
+		NewModel newModel = newDao.findOne(id);
+		CategoryModel categoryModel = categoryDAO.findOne(newModel.getCategoryId());
+		newModel.setCategoryCode(categoryModel.getCode());
+        return newModel;
+    }
 
 }

@@ -14,54 +14,53 @@ import com.laptrinhjavaweb.constant.SystemConstant;
 import com.laptrinhjavaweb.model.NewModel;
 import com.laptrinhjavaweb.paging.PageRequest;
 import com.laptrinhjavaweb.paging.Pageble;
+import com.laptrinhjavaweb.service.ICategoryService;
 import com.laptrinhjavaweb.service.INewService;
 import com.laptrinhjavaweb.sort.Sorter;
 import com.laptrinhjavaweb.utils.FormUtil;
 
-@WebServlet(urlPatterns = { "/admin-new" }) // multiple != (value = "/trang-chu")
+@WebServlet(urlPatterns = {"/admin-new"}) // multiple != (value = "/trang-chu")
 public class NewController extends HttpServlet {
 
-	private static final long serialVersionUID = 2686801510274002166L;
-	
-	@Inject
-	private INewService newService;
+    private static final long serialVersionUID = 2686801510274002166L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// Get Parameters from View (with attribute name in <input> tag)
-		/*// 1. Manual	
-		NewModel model = new NewModel();
-		String pageStr = request.getParameter("page");
-		String maxPageItemStr = request.getParameter("maxPageItem");
-		if (pageStr != null)
-			model.setPage(Integer.parseInt(pageStr));
-		else
-			model.setPage(1);
-		if (maxPageItemStr != null)
-			model.setMaxPageItem(Integer.parseInt(maxPageItemStr));
-		else
-			model.setMaxPageItem(0);*/ 
-		
-		// 2. From Util (BeanUtils)
-			// nhận dữ liệu từ client (views)
-		NewModel model = FormUtil.toModel(NewModel.class, request);		
-			// set data
-		Pageble pageble = new PageRequest(model.getPage(), model.getMaxPageItem(),
-											new Sorter(model.getSortName(), model.getSortBy()));
-		model.setListResult(newService.findAll(pageble));
-		model.setTotalItem(newService.getTotalItem());
-		model.setTotalPage((int) Math.ceil((double) model.getTotalItem() / model.getMaxPageItem()));
-			// trả dữ liệu ra views với tên biến 'model' 
-		request.setAttribute(SystemConstant.MODEL, model);
-		/* getRequestDispatcher(""): return views muon tra ve 
-		   (dispatcher: nguoi gui di - dieu phoi) */
-		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/new/list.jsp"); 
-		rd.forward(request, response);; // additional commit
-	}
+    @Inject
+    private INewService newService;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    @Inject
+    private ICategoryService categoryService;
 
-	}
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // from request.getParameterMap() - [String JSON] to objectModel
+        NewModel model = FormUtil.toModel(NewModel.class, request);
+        String view = "";
+        if (model.getType().equals(SystemConstant.LIST)) {
+            Pageble pageble = new PageRequest(model.getPage(), model.getMaxPageItem(),
+                    new Sorter(model.getSortName(), model.getSortBy()));
+            model.setListResult(newService.findAll(pageble));
+            model.setTotalItem(newService.getTotalItem());
+            model.setTotalPage((int) Math.ceil((double) model.getTotalItem() / model.getMaxPageItem()));
+            view = "/views/admin/new/list.jsp";
+        } else if (model.getType().equals(SystemConstant.EDIT)) {
+            if (model.getId() != null)
+                model = newService.findOne(model.getId());
+            else {
+
+            }
+            request.setAttribute(SystemConstant.MODEL, model);
+            view = "/views/admin/new/edit.jsp";
+        }
+
+        request.setAttribute("categories",categoryService.findAll());
+        RequestDispatcher rd = request.getRequestDispatcher(view);
+        rd.forward(request, response);
+        ; // additional commit
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+    }
 
 }

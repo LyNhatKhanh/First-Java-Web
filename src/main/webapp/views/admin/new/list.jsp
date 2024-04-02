@@ -80,7 +80,10 @@
                                     </table>
                                     <ul class="pagination" id="pagination"></ul>
                                     <!-- server get data: request.getParameter("page") -->
+                                        <%-- id: declare to invoke in jQuery ; name: declare to invoke in field-of-Model
+                                             name resemble fieldOfModel to binding data => match each other by Map{key:value} --%>
                                     <!-- this is appear on URL 'admin-new?trang=2&maxPageItem=2' -->
+                                    <input type="hidden" value="" id="type" name="type"/>
                                     <input type="hidden" value="" id="page" name="page"/>
                                     <input type="hidden" value="" id="maxPageItem" name="maxPageItem"/>
                                     <input type="hidden" value="" id="sortName" name="sortName"/>
@@ -108,8 +111,9 @@
                 if (currentPage != page) {
                     $("#maxPageItem").val(limit);   // truyền dữ liệu lên tag <input>
                     $("#page").val(page);           // truyền dữ liệu lên tag <input>
-                    $("#sortName").val('title');   // truyền dữ liệu lên tag <input>
-                    $("#sortBy").val('desc');           // truyền dữ liệu lên tag <input>
+                    $("#sortName").val('title');    // truyền dữ liệu lên tag <input>
+                    $("#sortBy").val('desc');       // truyền dữ liệu lên tag <input>
+                    $("#type").val('list');         // truyền dữ liệu lên tag <input>
                     $('#formSubmit').submit();
                 }
             }
