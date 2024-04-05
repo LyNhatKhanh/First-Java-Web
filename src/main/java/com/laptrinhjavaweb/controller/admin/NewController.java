@@ -48,10 +48,10 @@ public class NewController extends HttpServlet {
             else {
 
             }
-            request.setAttribute(SystemConstant.MODEL, model);
+
             view = "/views/admin/new/edit.jsp";
         }
-
+        request.setAttribute(SystemConstant.MODEL, model);
         request.setAttribute("categories",categoryService.findAll());
         RequestDispatcher rd = request.getRequestDispatcher(view);
         rd.forward(request, response);

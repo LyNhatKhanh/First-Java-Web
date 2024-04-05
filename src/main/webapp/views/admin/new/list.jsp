@@ -109,6 +109,7 @@
             startPage: currentPage,
             onPageClick: function (event, page) {
                 if (currentPage != page) {
+                    // val(): used to return [val()] or set the value [val('title')] of attributes for the selected elements
                     $("#maxPageItem").val(limit);   // truyền dữ liệu lên tag <input>
                     $("#page").val(page);           // truyền dữ liệu lên tag <input>
                     $("#sortName").val('title');    // truyền dữ liệu lên tag <input>

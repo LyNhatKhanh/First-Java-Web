@@ -29,6 +29,8 @@ public class NewService implements INewService {
 	@Override
 	public NewModel save(NewModel newModel) {
 		newModel.setCreateDate(new Timestamp(System.currentTimeMillis()));
+		CategoryModel categoryModel = categoryDAO.findOneByCode(newModel.getCategoryCode());
+		newModel.setCategoryId(categoryModel.getId());
 		Long newId = newDao.save(newModel);
 		return newDao.findOne(newId);
 	}
@@ -36,9 +38,11 @@ public class NewService implements INewService {
 	@Override
 	public NewModel update(NewModel updateNew) {
 		NewModel oldNew = newDao.findOne(updateNew.getId());
+        CategoryModel categoryModel = categoryDAO.findOneByCode(updateNew.getCategoryCode());
 		updateNew.setCreateDate(oldNew.getCreateDate());
 		updateNew.setCreateBy(oldNew.getCreateBy());
 		updateNew.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+        updateNew.setCategoryId(categoryModel.getId());
 		newDao.update(updateNew);
 		return newDao.findOne(updateNew.getId());
 	}

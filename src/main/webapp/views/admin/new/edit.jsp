@@ -7,8 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/common/taglib.jsp" %>
-<c:url var="APIurl" value="/api-admin-new"/>
-<c:url var="NewURL" value="/admin-new"/>
+<c:url var="APIurl" value="/api-admin-new" />
 <html>
 <head>
     <title>Chỉnh sửa bài viết</title>
@@ -119,58 +118,68 @@
     </div>
 </div>
 <script>
-    var editor = '';
+    // var editor = '';
     // $(document).ready(function () {
     //     editor = CKEDITOR.replace('content');
     // });
 
     $('#btnAddOrUpdateNew').click(function (e) {
         e.preventDefault();
+        // array => javascript object
         var data = {};
         var formData = $('#formSubmit').serializeArray();
         $.each(formData, function (i, v) {
+            // { "categoryCode" : "the-gioi"}
             data["" + v.name + ""] = v.value;
         });
-        data["content"] = editor.getData();
+        // val(): used to return [val()] or set the value [val('title')] of attributes for the selected elements
         var id = $('#id').val();
-        if (id == "") {
+        if (id == "")
             addNew(data);
-        } else {
+        else
             updateNew(data);
-        }
     });
 
     function addNew(data) {
         $.ajax({
             url: '${APIurl}',
             type: 'POST',
-            contentType: 'application/json',
+            // contentType: The content-type used when sending data to the server.
+            contentType: "application/json",
+            // javascript-object => JSON
             data: JSON.stringify(data),
+            // dataType: The data-type expected of the server response.
             dataType: 'json',
+            // result: dataType from server
             success: function (result) {
-                window.location.href = "${NewURL}?type=edit&id=" + result.id + "&message=insert_success";
+                console.log(result);
             },
             error: function (error) {
-                window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1&message=error_system";
+                console.log(error);
             }
-        });
+        })
     }
 
     function updateNew(data) {
         $.ajax({
             url: '${APIurl}',
             type: 'PUT',
-            contentType: 'application/json',
+            // contentType: data-type from client send to server
+            contentType: "application/json",
+            // javascript-object => JSON
             data: JSON.stringify(data),
+            // dataType: data-type from server send to client
             dataType: 'json',
+            // result: dataType from server
             success: function (result) {
-                window.location.href = "${NewURL}?type=edit&id=" + result.id + "&message=update_success";
+                console.log(result);
             },
             error: function (error) {
-                window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1&message=error_system";
+                console.log(error);
             }
-        });
+        })
     }
+
 </script>
 </body>
 </html>
