@@ -17,15 +17,7 @@
 						<strong>${message}</strong>
 					</div>
 				</c:if>
-				<%--<div class="alert alert-danger">--%>
-					<%--<strong>Login Fail!</strong>--%>
-				<%--</div>--%>
 				<h3>Đăng nhập</h3>
-				<!-- <div class="d-flex justify-content-end social_icon">
-                    <span><i class="fab fa-facebook-square"></i></span>
-                    <span><i class="fab fa-google-plus-square"></i></span>
-                    <span><i class="fab fa-twitter-square"></i></span>
-                </div> -->
 			</div>
 			<div class="card-body">
 				<form action="<c:url value='/dang-nhap'/>" id="formLogin" method="post">

@@ -93,7 +93,7 @@
                             <label class="col-sm-3 control-label no-padding-right">Nội dung</label>
                             <div class="col-sm-9">
                                 <textarea rows="" cols="" id="content" name="content"
-                                          style="width: 820px;height: 175px">${model.content}</textarea>
+                                          style="width: 845px;height: 175px">${model.content}</textarea>
                             </div>
                         </div>
                         <br/>
