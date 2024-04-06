@@ -96,6 +96,7 @@
                                           style="width: 845px;height: 175px">${model.content}</textarea>
                             </div>
                         </div>
+
                         <br/>
                         <br/>
                         <div class="form-group">
@@ -118,10 +119,10 @@
     </div>
 </div>
 <script>
-    // var editor = '';
-    // $(document).ready(function () {
-    //     editor = CKEDITOR.replace('content');
-    // });
+    var editor = '';
+    $(document).ready(function () {
+        editor = CKEDITOR.replace('content');
+    });
 
     $('#btnAddOrUpdateNew').click(function (e) {
         e.preventDefault();
