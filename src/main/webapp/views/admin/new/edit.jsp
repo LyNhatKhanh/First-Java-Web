@@ -7,7 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/common/taglib.jsp" %>
-<c:url var="APIurl" value="/api-admin-new" />
+<c:url var="APIurl" value="/api-admin-new"/>
+<c:url var="NewURL" value="/admin-new"/>
 <html>
 <head>
     <title>Chỉnh sửa bài viết</title>
@@ -121,7 +122,7 @@
 <script>
     var editor = '';
     $(document).ready(function () {
-        editor = CKEDITOR.replace('content');
+        editor = CKEDITOR.replace( 'content');
     });
 
     $('#btnAddOrUpdateNew').click(function (e) {
@@ -133,6 +134,7 @@
             // { "categoryCode" : "the-gioi"}
             data["" + v.name + ""] = v.value;
         });
+        data["content"] = editor.getData(); // get fieldContent by new textarea (CKEDITOR)
         // val(): used to return [val()] or set the value [val('title')] of attributes for the selected elements
         var id = $('#id').val();
         if (id == "")
@@ -151,12 +153,12 @@
             data: JSON.stringify(data),
             // dataType: The data-type expected of the server response.
             dataType: 'json',
-            // result: dataType from server
+            // result, error: dataType from server (${model})
             success: function (result) {
-                console.log(result);
+                window.location.href = "${NewURL}?type=edit&id=" + result.id + "&message=insert_success";
             },
             error: function (error) {
-                console.log(error);
+                window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1&message=error_system";
             }
         })
     }
@@ -173,10 +175,10 @@
             dataType: 'json',
             // result: dataType from server
             success: function (result) {
-                console.log(result);
+                window.location.href = "${NewURL}?type=edit&id=" + result.id + "&message=update_success";
             },
             error: function (error) {
-                console.log(error);
+                window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1&message=error_system";
             }
         })
     }

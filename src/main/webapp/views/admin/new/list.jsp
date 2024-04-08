@@ -27,6 +27,11 @@
             <div class="page-content">
                 <div class="row">
                     <div class="col-xs-12">
+                        <c:if test="${not empty messageResponse}">
+                            <div class="alert alert-${alert}">
+                                    ${messageResponse}
+                            </div>
+                        </c:if>
                         <div class="widget-box table-filter">
                             <div class="table-btn-controls">
                                 <div class="pull-right tableTools-container">
@@ -143,16 +148,28 @@
             contentType: "application/json",
             // javascript-object => JSON
             data: JSON.stringify(data),
-            // result: dataType from server
+            // result, error: dataType from server (${model})
             success: function (result) {
-                window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1";
+                window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1&message=delete_success";
             },
             error: function (error) {
-                console.log(error);
+                window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1&message=error_system";
             }
         })
     }
 
+    $("#checkAll").click(function(){
+        $('input[type=checkbox]').not(this).prop('checked', this.checked);
+    });
+
+
+    // didn't work
+    /*$("input[type=checkbox]").click(function() {
+        $("input[type=checkbox]").each(function() {
+            if (!this.checked && $("#checkAll").is('checked'))
+                $("#checkAll").prop('checked', false);
+        });
+    });*/
 
 </script>
 </body>
